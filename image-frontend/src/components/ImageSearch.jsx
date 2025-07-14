@@ -10,7 +10,7 @@ export default function ImageSearch() {
     if (!id.trim()) return;
 
     try {
-      const res = await axios.get(`https://image-backend-k3uq.onrender.com/image/${id}`);
+      const res = await axios.get(`https://image-backend-giso.onrender.com/image/${id}`);//https://image-backend-k3uq.onrender.com
       setImageData(res.data);
       setNotFound(false);
     } catch (err) {
