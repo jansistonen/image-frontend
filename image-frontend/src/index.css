@@ -17,3 +17,14 @@ body {
   max-width: 700px;
   width: 100%;
 }
+
+.responsive-image {
+  width: 100%;
+  height: auto;
+  max-height: 60vh; /* Rajoita korkeutta puhelimella */
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  border-radius: 0.5rem;
+}
+
