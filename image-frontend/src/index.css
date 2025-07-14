@@ -1,4 +1,5 @@
-/* src/index.css */
+/* Yleiset */
+
 body {
   margin: 0;
   font-family: sans-serif;
@@ -13,15 +14,109 @@ body {
   background: white;
   padding: 2rem;
   border-radius: 1rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   max-width: 700px;
   width: 100%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  margin: 2rem auto;
+  position: relative;
+  z-index: 1;
 }
+
+
+/* Swipe-animaatio ja kuva-alue */
+
+.vote-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  max-width: 400px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: #f5f5f5;
+}
+
+.swipe-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  border-radius: 12px;
+  top: 0;
+  left: 0;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.current-image {
+  z-index: 2;
+}
+
+.next-image {
+  z-index: 1;
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.next-image.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.swipe-left {
+  transform: translateX(-150%) rotate(-10deg);
+  opacity: 0;
+  z-index: 3;
+}
+
+.swipe-right {
+  transform: translateX(150%) rotate(10deg);
+  opacity: 0;
+  z-index: 3;
+}
+
+
+/* Painikkeet */
+
+.swipe-buttons {
+  display: flex;
+  justify-content: space-between;
+  max-width: 400px;
+  margin: 1rem auto 0 auto;
+  z-index: 10;
+  position: relative;
+}
+
+.vote-button {
+  font-size: 2rem;
+  padding: 0.6rem 1.5rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.vote-button:hover {
+  transform: scale(1.1);
+}
+
+.vote-button.red {
+  background-color: #ff4d4d;
+  color: white;
+}
+
+.vote-button.green {
+  background-color: #4CAF50;
+  color: white;
+}
+
+
+/* Muut osiot */
 
 .responsive-image {
   width: 100%;
   height: auto;
-  max-height: 60vh; /* Rajoita korkeutta puhelimella */
+  max-height: 60vh;
   object-fit: contain;
   display: block;
   margin: 0 auto;
@@ -54,155 +149,3 @@ body {
   justify-content: space-around;
   margin-top: 1rem;
 }
-
-.vote-button {
-  font-size: 2rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.vote-button:hover {
-  transform: scale(1.1);
-}
-
-.vote-button.red {
-  background-color: #ff4d4d;
-  color: white;
-}
-
-.vote-button.green {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.swipe-container {
-  position: relative;
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
-  height: auto;
-}
-
-.swipe-image {
-  position: absolute;
-  width: 100%;
-  height: auto;
-  max-height: 60vh;
-  object-fit: contain;
-  border-radius: 12px;
-  transition: transform 0.5s ease, opacity 0.5s ease;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-
-.current-image {
-  z-index: 2;
-}
-
-.next-image {
-  z-index: 1;
-  opacity: 0.3;
-  scale: 0.96;
-  transform: translateY(10px);
-}
-
-.swipe-left {
-  transform: translateX(-120%) rotate(-15deg);
-  opacity: 0;
-}
-
-.swipe-right {
-  transform: translateX(120%) rotate(15deg);
-  opacity: 0;
-}
-
-.swipe-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 1rem;
-}
-
-.vote-button {
-  font-size: 2rem;
-  padding: 0.6rem 1.2rem;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.vote-button:hover {
-  transform: scale(1.05);
-}
-
-.vote-button.red {
-  background-color: #ff4d4d;
-  color: white;
-}
-
-.vote-button.green {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.app-container {
-  background: white;
-  padding: 2rem;
-  border-radius: 1rem;
-  max-width: 700px;
-  width: 100%;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  margin: 2rem auto;
-  position: relative;
-  z-index: 1;
-}
-
-.swipe-wrapper {
-  position: relative;
-  height: 65vh;  /* rajoita korkeus */
-  overflow: hidden;
-  margin-bottom: 2rem;
-}
-.vote-image-wrapper {
-  position: relative;
-  width: 100%;
-  height: 300px; /* 🟢 RAJAA näkyvä tila */
-  max-width: 400px;
-  margin: 0 auto;
-  overflow: hidden; /* 🔑 estää kuvien valumisen yli */
-}
-
-.swipe-image {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  transition: transform 0.5s ease, opacity 0.5s ease;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-
-.current-image {
-  z-index: 2;
-}
-
-.next-image {
-  z-index: 1;
-  opacity: 0.3;
-  scale: 0.96;
-  transform: translateY(10px);
-}
-
-.swipe-left {
-  transform: translateX(-120%) rotate(-15deg);
-  opacity: 0;
-}
-
-.swipe-right {
-  transform: translateX(120%) rotate(15deg);
-  opacity: 0;
-}
-
-
