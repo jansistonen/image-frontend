@@ -18,7 +18,7 @@ export default function ImageUpload() {
 
     setUploading(true);
     try {
-      const res = await axios.post("https://image-backend-k3uq.onrender.com/upload", formData);
+      const res = await axios.post("https://image-backend-giso.onrender.com/upload", formData);//https://image-backend-k3uq.onrender.com
       setUploadId(res.data.id);
     } catch (err) {
       console.error("Upload failed", err);
