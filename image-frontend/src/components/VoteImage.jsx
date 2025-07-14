@@ -55,31 +55,30 @@ export default function VoteImage() {
   }, []);
 
   return (
-    <div className="swipe-container" {...swipeHandlers}>
-      {nextImage && (
-        <img
-          src={nextImage.url}
-          alt="Seuraava"
-          className="swipe-image next-image"
-        />
-      )}
-      {currentImage && (
-        <img
-          src={currentImage.url}
-          alt="Äänestettävä"
-          className={`swipe-image current-image ${
-            swipeDirection === "left"
-              ? "swipe-left"
-              : swipeDirection === "right"
-              ? "swipe-right"
-              : ""
-          }`}
-        />
-      )}
-      <div className="swipe-buttons">
-        <button onClick={() => startVote("left")} className="vote-button red">👎</button>
-        <button onClick={() => startVote("right")} className="vote-button green">👍</button>
-      </div>
-    </div>
-  );
-}
+    <div className="vote-image-wrapper" {...swipeHandlers}>
+  {nextImage && (
+    <img
+      src={nextImage.url}
+      alt="Seuraava"
+      className="swipe-image next-image"
+    />
+  )}
+  {currentImage && (
+    <img
+      src={currentImage.url}
+      alt="Äänestettävä"
+      className={`swipe-image current-image ${
+        swipeDirection === "left"
+          ? "swipe-left"
+          : swipeDirection === "right"
+          ? "swipe-right"
+          : ""
+      }`}
+    />
+  )}
+</div>
+
+<div className="swipe-buttons">
+  <button onClick={() => startVote("left")} className="vote-button red">👎</button>
+  <button onClick={() => startVote("right")} className="vote-button green">👍</button>
+</div>
