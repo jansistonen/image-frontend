@@ -78,4 +78,73 @@ body {
   color: white;
 }
 
+.swipe-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  height: auto;
+}
+
+.swipe-image {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  max-height: 60vh;
+  object-fit: contain;
+  border-radius: 12px;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.current-image {
+  z-index: 2;
+}
+
+.next-image {
+  z-index: 1;
+  opacity: 0.3;
+  scale: 0.96;
+  transform: translateY(10px);
+}
+
+.swipe-left {
+  transform: translateX(-120%) rotate(-15deg);
+  opacity: 0;
+}
+
+.swipe-right {
+  transform: translateX(120%) rotate(15deg);
+  opacity: 0;
+}
+
+.swipe-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.vote-button {
+  font-size: 2rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.vote-button:hover {
+  transform: scale(1.05);
+}
+
+.vote-button.red {
+  background-color: #ff4d4d;
+  color: white;
+}
+
+.vote-button.green {
+  background-color: #4CAF50;
+  color: white;
+}
+
 
