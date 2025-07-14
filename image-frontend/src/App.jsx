@@ -6,13 +6,18 @@ import VoteImage from "./components/VoteImage";
 function App() {
   return (
     <div className="app-container">
-      <h1 style={{ textAlign: "center" }}>🖼️ Kuvaäänestys</h1>
-      <VoteImage />
-      <hr />
-      <ImageUpload />
-      <hr />
-      <ImageSearch />
-    </div>
+  <h1>🖼️ Kuvaäänestys</h1>
+
+  <div className="swipe-wrapper">
+    <VoteImage />
+  </div>
+
+  <hr />
+  <ImageUpload />
+  <hr />
+  <ImageSearch />
+</div>
+
   );
 }
 
