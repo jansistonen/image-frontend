@@ -41,7 +41,7 @@ export default function VoteImage() {
 
   return (
     <div className="max-w-md mx-auto p-4 text-center">
-      <img src={image.url} alt="Äänestettävä" className="rounded mb-4" />
+      <img src={image.url} alt="Äänestettävä" className="responsive-image" />
       <div className="flex justify-between gap-4">
         <button
           onClick={() => sendVote("left")}
