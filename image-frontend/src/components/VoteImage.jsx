@@ -3,54 +3,82 @@ import axios from "axios";
 import { useSwipeable } from "react-swipeable";
 
 export default function VoteImage() {
-  const [image, setImage] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [currentImage, setCurrentImage] = useState(null);
+  const [nextImage, setNextImage] = useState(null);
+  const [animating, setAnimating] = useState(false);
+  const [swipeDirection, setSwipeDirection] = useState(null); // "left" or "right"
 
   const fetchRandomImage = async () => {
-    setLoading(true);
-    try {
-      const res = await axios.get("https://image-backend-giso.onrender.com/random-image");
-      setImage(res.data);
-    } catch (err) {
-      console.error("Failed to fetch image", err);
-      setImage(null);
-    } finally {
-      setLoading(false);
-    }
+    const res = await axios.get("https://image-backend-giso.onrender.com/random-image");
+    return res.data;
   };
 
-  const sendVote = async (direction) => {
-    if (!image) return;
+  const preloadNextImage = async () => {
+    const img = await fetchRandomImage();
+    setNextImage(img);
+  };
+
+  const startVote = async (direction) => {
+    if (animating || !currentImage) return;
+
+    setSwipeDirection(direction);
+    setAnimating(true);
+
     await axios.post("https://image-backend-giso.onrender.com/vote", {
-      id: image.id,
+      id: currentImage.id,
       direction,
     });
-    fetchRandomImage();
+
+    // Animaatio kestää 500ms
+    setTimeout(() => {
+      setCurrentImage(nextImage);
+      setSwipeDirection(null);
+      setAnimating(false);
+      preloadNextImage();
+    }, 500);
   };
 
-  useEffect(() => {
-    fetchRandomImage();
-  }, []);
-
   const swipeHandlers = useSwipeable({
-    onSwipedLeft: () => sendVote("left"),
-    onSwipedRight: () => sendVote("right"),
+    onSwipedLeft: () => startVote("left"),
+    onSwipedRight: () => startVote("right"),
     trackMouse: true,
   });
 
-  if (loading) return <p>Ladataan kuvaa...</p>;
-  if (!image) return <p>Ei kuvia saatavilla.</p>;
+  useEffect(() => {
+    const initImages = async () => {
+      const first = await fetchRandomImage();
+      const second = await fetchRandomImage();
+      setCurrentImage(first);
+      setNextImage(second);
+    };
+    initImages();
+  }, []);
 
   return (
-    <div {...swipeHandlers} className="vote-container">
-      <img
-        src={image.url}
-        alt="Äänestettävä"
-        className="responsive-image fade-in"
-      />
-      <div className="button-row">
-        <button onClick={() => sendVote("left")} className="vote-button red">👎</button>
-        <button onClick={() => sendVote("right")} className="vote-button green">👍</button>
+    <div className="swipe-container" {...swipeHandlers}>
+      {nextImage && (
+        <img
+          src={nextImage.url}
+          alt="Seuraava"
+          className="swipe-image next-image"
+        />
+      )}
+      {currentImage && (
+        <img
+          src={currentImage.url}
+          alt="Äänestettävä"
+          className={`swipe-image current-image ${
+            swipeDirection === "left"
+              ? "swipe-left"
+              : swipeDirection === "right"
+              ? "swipe-right"
+              : ""
+          }`}
+        />
+      )}
+      <div className="swipe-buttons">
+        <button onClick={() => startVote("left")} className="vote-button red">👎</button>
+        <button onClick={() => startVote("right")} className="vote-button green">👍</button>
       </div>
     </div>
   );
