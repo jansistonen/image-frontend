@@ -36,7 +36,7 @@ export default function ImageSearch() {
 
       {imageData && (
         <div className="mt-4">
-          <img src={imageData.url} alt="Haettu kuva" className="w-full rounded" />
+          <img src={imageData.url} alt="Haettu kuva" className="responsive-image" />
           {imageData.percentage !== null ? (
             <p className="mt-2">👍 {imageData.percentage}% käyttäjistä äänesti jatkoon</p>
           ) : (
