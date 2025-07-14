@@ -55,18 +55,19 @@ export default function VoteImage() {
   }, []);
 
   return (
-    <div className="vote-image-wrapper" {...swipeHandlers}>
+    <div className="vote-image-wrapper">
   {nextImage && (
     <img
       src={nextImage.url}
       alt="Seuraava"
-      className="swipe-image next-image"
+      className={`swipe-image next-image ${animating ? "visible" : ""}`}
     />
   )}
+
   {currentImage && (
     <img
       src={currentImage.url}
-      alt="Äänestettävä"
+      alt="Nykyinen"
       className={`swipe-image current-image ${
         swipeDirection === "left"
           ? "swipe-left"
