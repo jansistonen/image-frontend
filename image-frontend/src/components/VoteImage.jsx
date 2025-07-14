@@ -8,7 +8,8 @@ export default function VoteImage() {
   const fetchRandomImage = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("https://image-backend-k3uq.onrender.com/random-image");
+      const res = await axios.get("https://image-backend-giso.onrender.com/random-image");//https://image-backend-k3uq.onrender.com
+      
       setImage(res.data);
     } catch (err) {
       console.error("Failed to fetch image", err);
@@ -22,7 +23,8 @@ export default function VoteImage() {
     if (!image) return;
 
     try {
-      await axios.post("https://image-backend-k3uq.onrender.com/vote", {
+      await axios.post("https://image-backend-giso.onrender.com/vote", {//https://image-backend-k3uq.onrender.com
+        
         id: image.id,
         direction,
       });
