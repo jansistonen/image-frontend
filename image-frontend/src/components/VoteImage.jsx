@@ -67,6 +67,13 @@ const startVote = async (direction) => {
   }, []);
 
   return (
+    {lastResult && (
+  <div className="vote-result">
+    {lastResult}
+  </div>
+)}
+
+
     <div className="vote-image-wrapper" {...swipeHandlers}>
       {nextImage && (
         <img
