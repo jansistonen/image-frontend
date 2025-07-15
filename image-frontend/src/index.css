@@ -21,19 +21,20 @@
   border-radius: 12px;
   top: 0;
   left: 0;
-  transition: transform 0.5s ease, opacity 0.5s ease;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
 .current-image {
   z-index: 2;
+  transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
 .next-image {
   z-index: 1;
   opacity: 1;
-  transform: none; /* poistetaan animointi */
+  transform: none;
 }
+
 
 .swipe-left {
   transform: translateX(-150%) rotate(-10deg);
