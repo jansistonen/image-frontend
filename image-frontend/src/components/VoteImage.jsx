@@ -7,6 +7,8 @@ export default function VoteImage() {
   const [nextImage, setNextImage] = useState(null);
   const [animating, setAnimating] = useState(false);
   const [swipeDirection, setSwipeDirection] = useState(null);
+  const [lastResult, setLastResult] = useState(null); //lisätty
+
 
   const fetchRandomImage = async () => {
     const res = await axios.get("https://image-backend-giso.onrender.com/random-image");
@@ -18,24 +20,35 @@ export default function VoteImage() {
     setNextImage(img);
   };
 
-  const startVote = async (direction) => {
-    if (animating || !currentImage) return;
+const startVote = async (direction) => {
+  if (animating || !currentImage) return;
 
-    setSwipeDirection(direction);
-    setAnimating(true);
+  setSwipeDirection(direction);
+  setAnimating(true);
 
-    await axios.post("https://image-backend-giso.onrender.com/vote", {
-      id: currentImage.id,
-      direction,
-    });
+  await axios.post("https://image-backend-giso.onrender.com/vote", {
+    id: currentImage.id,
+    direction,
+  });
 
-    setTimeout(() => {
-      setCurrentImage(nextImage);
-      setSwipeDirection(null);
-      setAnimating(false);
-      preloadNextImage();
-    }, 500);
-  };
+  // Hae tulokset
+  try {
+    const resultRes = await axios.get(`https://image-backend-giso.onrender.com/vote-result/${currentImage.id}`);
+    const { positiveVotes, totalVotes } = resultRes.data;
+    const percentage = totalVotes > 0 ? Math.round((positiveVotes / totalVotes) * 100) : 0;
+    setLastResult(`Jatkoon: ${percentage}%`);
+  } catch (err) {
+    setLastResult("Ei tulosta");
+  }
+
+  setTimeout(() => {
+    setCurrentImage(nextImage);
+    setSwipeDirection(null);
+    setAnimating(false);
+    preloadNextImage();
+  }, 500);
+};
+
 
   const swipeHandlers = useSwipeable({
     onSwipedLeft: () => startVote("left"),
