@@ -67,9 +67,7 @@ const startVote = async (direction) => {
   }, []);
 
   return (
-   
-
-
+  <>
     <div className="vote-image-wrapper" {...swipeHandlers}>
       {nextImage && (
         <img
@@ -93,16 +91,17 @@ const startVote = async (direction) => {
         />
       )}
 
-       {lastResult && (
-  <div className="vote-result">
-    {lastResult}
-  </div>
-)}
-
       <div className="swipe-buttons">
         <button onClick={() => startVote("left")} className="vote-button red">👎</button>
         <button onClick={() => startVote("right")} className="vote-button green">👍</button>
       </div>
     </div>
-  );
-}
+
+    {/* ✅ Äänestystulos näkyy tässä */}
+    {lastResult && (
+      <div className="vote-result">
+        {lastResult}
+      </div>
+    )}
+  </>
+);
