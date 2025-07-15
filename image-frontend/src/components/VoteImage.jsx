@@ -67,11 +67,7 @@ const startVote = async (direction) => {
   }, []);
 
   return (
-    {lastResult && (
-  <div className="vote-result">
-    {lastResult}
-  </div>
-)}
+   
 
 
     <div className="vote-image-wrapper" {...swipeHandlers}>
@@ -96,6 +92,12 @@ const startVote = async (direction) => {
           }`}
         />
       )}
+
+       {lastResult && (
+  <div className="vote-result">
+    {lastResult}
+  </div>
+)}
 
       <div className="swipe-buttons">
         <button onClick={() => startVote("left")} className="vote-button red">👎</button>
