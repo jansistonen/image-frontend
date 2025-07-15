@@ -6,7 +6,7 @@ export default function VoteImage() {
   const [currentImage, setCurrentImage] = useState(null);
   const [nextImage, setNextImage] = useState(null);
   const [animating, setAnimating] = useState(false);
-  const [swipeDirection, setSwipeDirection] = useState(null); // "left" or "right"
+  const [swipeDirection, setSwipeDirection] = useState(null);
 
   const fetchRandomImage = async () => {
     const res = await axios.get("https://image-backend-giso.onrender.com/random-image");
@@ -29,7 +29,6 @@ export default function VoteImage() {
       direction,
     });
 
-    // Animaatio kestää 500ms
     setTimeout(() => {
       setCurrentImage(nextImage);
       setSwipeDirection(null);
@@ -55,31 +54,33 @@ export default function VoteImage() {
   }, []);
 
   return (
-    <div className="vote-image-wrapper">
-  {nextImage && (
-    <img
-      src={nextImage.url}
-      alt="Seuraava"
-      className={`swipe-image next-image ${animating ? "visible" : ""}`}
-    />
-  )}
+    <div className="vote-image-wrapper" {...swipeHandlers}>
+      {nextImage && (
+        <img
+          src={nextImage.url}
+          alt="Seuraava"
+          className="swipe-image next-image"
+        />
+      )}
 
-  {currentImage && (
-    <img
-      src={currentImage.url}
-      alt="Nykyinen"
-      className={`swipe-image current-image ${
-        swipeDirection === "left"
-          ? "swipe-left"
-          : swipeDirection === "right"
-          ? "swipe-right"
-          : ""
-      }`}
-    />
-  )}
-</div>
+      {currentImage && (
+        <img
+          src={currentImage.url}
+          alt="Nykyinen"
+          className={`swipe-image current-image ${
+            swipeDirection === "left"
+              ? "swipe-left"
+              : swipeDirection === "right"
+              ? "swipe-right"
+              : ""
+          }`}
+        />
+      )}
 
-<div className="swipe-buttons">
-  <button onClick={() => startVote("left")} className="vote-button red">👎</button>
-  <button onClick={() => startVote("right")} className="vote-button green">👍</button>
-</div>
+      <div className="swipe-buttons">
+        <button onClick={() => startVote("left")} className="vote-button red">👎</button>
+        <button onClick={() => startVote("right")} className="vote-button green">👍</button>
+      </div>
+    </div>
+  );
+}
